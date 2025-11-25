@@ -1,0 +1,5 @@
+{
+  "name": "Sprout",
+  "description": "A sermon preparation tool based on Andy Stanley's 'Communicating for a Change' methodology, featuring a dark mode interface, integrated timer, and AI-powered assistance.",
+  "requestFramePermissions": []
+}
