@@ -184,16 +184,17 @@ export default function App() {
     <div className="h-screen flex flex-col bg-background text-slate-200 overflow-hidden selection:bg-indigo-500/30">
       
       {/* STATIC TOP AREA: Verses + Timer + One Point */}
-      <div className="flex-none z-20 bg-background shadow-lg shadow-black/20 border-b border-border">
+      <div className="flex-none z-20 bg-background shadow-lg shadow-black/20 border-b border-border print:border-none print:shadow-none print:bg-white print:text-black">
         
         {/* Content Container */}
-        <div className="max-w-6xl mx-auto p-3 md:p-4 lg:px-8 md:py-6 space-y-3 md:space-y-4">
+        <div className="max-w-6xl mx-auto p-3 md:p-4 lg:px-8 md:py-6 space-y-3 md:space-y-4 print:p-0 print:space-y-2">
           
           {/* Top Row: Verses & Timer - 3:1 ratio on all screens */}
-          <div className="grid grid-cols-4 gap-3 md:gap-6">
+          <div className="grid grid-cols-4 gap-3 md:gap-6 print:block">
             {/* Verses Container */}
-            <div className="col-span-3 bg-surface border border-border rounded-xl p-0 flex flex-col overflow-hidden shadow-sm h-36 md:h-40 transition-all">
-               <div className="px-2 md:px-4 py-2 md:py-3 border-b border-border bg-slate-800/50 flex items-center justify-between">
+            <div className="col-span-3 bg-surface border border-border rounded-xl p-0 flex flex-col overflow-hidden shadow-sm h-36 md:h-40 transition-all print:h-auto print:bg-transparent print:border-none print:shadow-none print:mb-4">
+               <div className="px-2 md:px-4 py-2 md:py-3 border-b border-border bg-slate-800/50 flex items-center justify-between print:border-none print:bg-transparent print:p-0 print:mb-1">
+                  {/* Screen Input */}
                   <input 
                     type="text" 
                     placeholder="Reference..."
@@ -201,14 +202,25 @@ export default function App() {
                     value={bookReference}
                     onChange={(e) => setBookReference(e.target.value)}
                   />
-                  <span className="hidden md:inline text-xs text-slate-500 whitespace-nowrap ml-2">Scripture Foundation</span>
+                  {/* Print View for Reference */}
+                  <div className="print-only text-lg font-bold text-black uppercase tracking-wider mb-1">
+                    {bookReference || "Scripture Reference"}
+                  </div>
+                  <span className="hidden md:inline text-xs text-slate-500 whitespace-nowrap ml-2 no-print">Scripture Foundation</span>
                </div>
+               
+               {/* Screen Textarea */}
                <textarea 
-                  className="flex-grow bg-transparent p-2 md:p-4 text-slate-300 placeholder-slate-600 focus:outline-none resize-none text-xs md:text-base print-black-text leading-relaxed"
+                  className="flex-grow bg-transparent p-2 md:p-4 text-slate-300 placeholder-slate-600 focus:outline-none resize-none text-xs md:text-base leading-relaxed"
                   placeholder="Paste scripture..."
                   value={verses}
                   onChange={(e) => setVerses(e.target.value)}
                />
+
+               {/* Print View for Verses */}
+               <div className="print-only whitespace-pre-wrap text-sm leading-relaxed text-black border-l-4 border-slate-300 pl-4 italic">
+                 {verses || "No scripture provided."}
+               </div>
             </div>
 
             {/* Timer Container */}
@@ -218,17 +230,25 @@ export default function App() {
           </div>
 
           {/* Bottom Row (Static): The One Point */}
-          <div className="relative group">
-             <div className="absolute inset-y-0 left-0 pl-3 md:pl-4 flex items-center pointer-events-none">
+          <div className="relative group print:mt-4">
+             <div className="absolute inset-y-0 left-0 pl-3 md:pl-4 flex items-center pointer-events-none no-print">
                <span className="text-yellow-500 font-bold text-[10px] md:text-xs tracking-wider uppercase whitespace-nowrap">The One Point</span>
              </div>
+             
+             {/* Screen Input */}
              <input 
                type="text"
-               className="w-full bg-slate-800/80 border border-slate-700 rounded-xl py-3 md:py-4 pl-32 sm:pl-36 md:pl-36 pr-10 md:pr-12 text-base md:text-lg font-medium text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/20 focus:border-yellow-500/50 transition-all shadow-sm print-black-text"
+               className="w-full bg-slate-800/80 border border-slate-700 rounded-xl py-3 md:py-4 pl-32 sm:pl-36 md:pl-36 pr-10 md:pr-12 text-base md:text-lg font-medium text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/20 focus:border-yellow-500/50 transition-all shadow-sm"
                placeholder="State your main idea..."
                value={onePoint}
                onChange={(e) => setOnePoint(e.target.value)}
              />
+
+             {/* Print View for One Point */}
+             <div className="print-only text-2xl font-black text-center text-black py-4 border-y-2 border-black my-4">
+                {onePoint || "The One Point"}
+             </div>
+
              <button 
                className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 p-1.5 md:p-2 text-slate-500 hover:text-yellow-400 transition-colors no-print disabled:opacity-50"
                onClick={handleGenerateFullSermon}
@@ -242,11 +262,11 @@ export default function App() {
       </div>
 
       {/* SCROLLABLE BOTTOM AREA */}
-      <div id="scroll-container" className="flex-1 overflow-y-auto">
-        <main className="max-w-6xl mx-auto p-3 md:p-8 space-y-4 md:space-y-6">
+      <div id="scroll-container" className="flex-1 overflow-y-auto print:overflow-visible">
+        <main className="max-w-6xl mx-auto p-3 md:p-8 space-y-4 md:space-y-6 print:p-0 print:space-y-4 print:block">
           
           {/* Sermon Sections */}
-          <div className="space-y-4 md:space-y-6 pb-10">
+          <div className="space-y-4 md:space-y-6 pb-10 print:space-y-6 print:pb-0">
               {SECTION_ORDER.map((sectionKey) => {
                   const sectionData = sections[sectionKey];
                   return null; 
@@ -261,7 +281,7 @@ export default function App() {
                   onActivate={() => setActiveSectionId('intro')}
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 print:grid-cols-1 print:gap-4">
                   <SectionCard 
                       data={sections.me} 
                       onChange={(val) => handleSectionChange('me', val)} 
@@ -289,7 +309,7 @@ export default function App() {
                   onActivate={() => setActiveSectionId('god')}
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 print:grid-cols-1 print:gap-4">
                   <SectionCard 
                       data={sections.you} 
                       onChange={(val) => handleSectionChange('you', val)} 

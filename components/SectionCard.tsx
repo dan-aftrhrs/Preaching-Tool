@@ -60,12 +60,12 @@ export const SectionCard: React.FC<Props> = ({
   return (
     <div 
         id={data.id}
-        className={`bg-surface border border-border rounded-lg overflow-hidden transition-all duration-300 ${styles.border} border-l-4 print-border print-break-inside-avoid shadow-sm hover:shadow-md ${containerLiveStyles}`}
+        className={`bg-surface border border-border rounded-lg overflow-hidden transition-all duration-300 ${styles.border} border-l-4 shadow-sm hover:shadow-md ${containerLiveStyles} print:bg-white print:border-slate-300 print:shadow-none print:break-inside-avoid page-break-inside-avoid`}
         onClick={() => isLiveMode && onActivate()}
     >
       {/* Header */}
       <div 
-        className="flex items-center justify-between p-3 md:p-4 cursor-pointer hover:bg-slate-700/30 transition-colors"
+        className="flex items-center justify-between p-3 md:p-4 cursor-pointer hover:bg-slate-700/30 transition-colors print:p-2 print:hover:bg-transparent print:border-b print:border-slate-100"
         onClick={(e) => {
             if (!isLiveMode) {
                 onToggle();
@@ -75,34 +75,42 @@ export const SectionCard: React.FC<Props> = ({
         }}
       >
         <div className="flex items-center gap-2 md:gap-3 overflow-hidden">
-          <span className={`px-1.5 md:px-2 py-0.5 rounded text-[10px] md:text-xs font-bold tracking-wider uppercase flex-shrink-0 ${styles.badge}`}>
+          <span className={`px-1.5 md:px-2 py-0.5 rounded text-[10px] md:text-xs font-bold tracking-wider uppercase flex-shrink-0 ${styles.badge} print:bg-slate-200 print:text-black print:border print:border-slate-300`}>
             {data.label}
           </span>
-          <span className="text-slate-300 font-semibold text-xs md:text-sm tracking-wide truncate">
+          <span className="text-slate-300 font-semibold text-xs md:text-sm tracking-wide truncate print:text-black">
             {data.title}
           </span>
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <button className="text-slate-500 hover:text-slate-300 no-print">
+        <div className="flex items-center gap-2 flex-shrink-0 no-print">
+          <button className="text-slate-500 hover:text-slate-300">
             {data.isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
         </div>
       </div>
 
       {/* Content */}
-      {data.isExpanded && (
-        <div className="px-3 md:px-4 pb-3 md:pb-4">
+      <div className={`${!data.isExpanded ? 'hidden print:block' : ''}`}>
+        <div className="px-3 md:px-4 pb-3 md:pb-4 print:p-4">
+          
+          {/* Screen Input */}
           <textarea
             ref={textareaRef}
-            className="w-full bg-slate-900/50 text-slate-200 placeholder-slate-600 rounded p-2 md:p-3 text-lg focus:outline-none focus:ring-1 focus:ring-slate-500 resize-none overflow-hidden border border-transparent focus:border-slate-600 transition-all print-black-text leading-relaxed break-words"
+            className="w-full bg-slate-900/50 text-slate-200 placeholder-slate-600 rounded p-2 md:p-3 text-lg focus:outline-none focus:ring-1 focus:ring-slate-500 resize-none overflow-hidden border border-transparent focus:border-slate-600 transition-all leading-relaxed break-words no-print"
             placeholder={data.placeholder}
             value={data.content}
             onChange={(e) => onChange(e.target.value)}
-            disabled={isLiveMode} // Optional: Disable editing during presentation
-            rows={1} // Start with 1 row, let auto-resize handle height
+            disabled={isLiveMode} 
+            rows={1} 
           />
+
+          {/* Print Output - Always visible in print, replaces the textarea */}
+          <div className="print-only whitespace-pre-wrap text-black text-sm leading-relaxed font-serif">
+            {data.content || <span className="text-slate-400 italic">No content added.</span>}
+          </div>
+
         </div>
-      )}
+      </div>
     </div>
   );
 };

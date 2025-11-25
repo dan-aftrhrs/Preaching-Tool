@@ -45,33 +45,52 @@
         background: #475569; 
       }
       @media print {
-        body {
-          background-color: white;
-          color: black;
+        @page {
+          margin: 1cm;
         }
+        body {
+          background-color: white !important;
+          color: black !important;
+          -webkit-print-color-adjust: exact;
+        }
+        /* Reset Fixed App Heights */
+        html, body, #root, .h-screen {
+          height: auto !important;
+          overflow: visible !important;
+          position: static !important;
+        }
+        /* Hide UI elements */
         .no-print {
           display: none !important;
         }
-        .print-break-inside-avoid {
+        /* Styles for the swapped content */
+        .print-only {
+          display: block !important;
+        }
+        /* Ensure scrolling containers expand */
+        #scroll-container {
+          height: auto !important;
+          overflow: visible !important;
+          display: block !important;
+        }
+        /* Override specific component styles */
+        textarea, input {
+          display: none !important;
+        }
+        /* Utilities */
+        .page-break-inside-avoid {
           break-inside: avoid;
         }
         .print-black-text {
           color: black !important;
         }
-        .print-border {
-          border: 1px solid #ccc !important;
+        .print-border-none {
+          border: none !important;
         }
-        textarea {
-          border: none;
-          resize: none;
-          height: auto;
-          overflow: visible;
-        }
-        /* Allow scrolling area to print fully */
-        #scroll-container {
-          overflow: visible !important;
-          height: auto !important;
-        }
+      }
+      /* Helper to hide print-only items on screen */
+      .print-only {
+        display: none;
       }
     </style>
   <script type="importmap">
