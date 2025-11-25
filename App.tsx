@@ -224,7 +224,7 @@ export default function App() {
              </div>
              <input 
                type="text"
-               className="w-full bg-slate-800/80 border border-slate-700 rounded-xl py-3 md:py-4 pl-32 md:pl-36 pr-10 md:pr-12 text-base md:text-lg font-medium text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/20 focus:border-yellow-500/50 transition-all shadow-sm print-black-text"
+               className="w-full bg-slate-800/80 border border-slate-700 rounded-xl py-3 md:py-4 pl-32 sm:pl-36 md:pl-36 pr-10 md:pr-12 text-base md:text-lg font-medium text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/20 focus:border-yellow-500/50 transition-all shadow-sm print-black-text"
                placeholder="State your main idea..."
                value={onePoint}
                onChange={(e) => setOnePoint(e.target.value)}

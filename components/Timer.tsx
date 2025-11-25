@@ -45,14 +45,14 @@ export const Timer: React.FC<TimerProps> = ({ isRunning, onToggle }) => {
   };
 
   return (
-    <div className="h-full bg-surface border border-border rounded-xl p-2 md:p-4 flex flex-col justify-between items-center relative overflow-hidden">
+    <div className="h-full bg-surface border border-border rounded-xl p-1 md:p-4 flex flex-col justify-between items-center relative overflow-hidden">
       {/* Header: Local Time */}
-      <div className="w-full flex justify-between items-center text-xs text-slate-400 mb-1 md:mb-2">
-        <div className="flex items-center gap-1">
-          <Clock size={12} className="hidden md:block" />
-          <span className="hidden md:inline">Local</span>
+      <div className="w-full flex justify-between items-center text-xs text-slate-400 mb-1 md:mb-2 px-1">
+        <div className="flex items-center gap-1 hidden sm:flex">
+          <Clock size={12} />
+          <span>Local</span>
         </div>
-        <span>{localTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+        <span className="w-full text-center sm:w-auto">{localTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
       </div>
 
       {/* Main Timer Display */}
@@ -63,22 +63,22 @@ export const Timer: React.FC<TimerProps> = ({ isRunning, onToggle }) => {
       </div>
 
       {/* Controls */}
-      <div className="w-full flex gap-1 md:gap-2 mt-2 md:mt-4">
+      <div className="w-full flex gap-1 md:gap-2 mt-1 md:mt-4 px-1">
         <button
           onClick={onToggle}
-          className={`flex-1 flex items-center justify-center gap-2 py-1 md:py-1.5 rounded-lg font-medium transition-colors text-xs md:text-sm ${
+          className={`flex-1 flex items-center justify-center gap-1 py-1 md:py-1.5 rounded-lg font-medium transition-colors text-[10px] md:text-sm ${
             isRunning 
               ? 'bg-yellow-600/20 text-yellow-500 hover:bg-yellow-600/30' 
               : 'bg-emerald-600/20 text-emerald-500 hover:bg-emerald-600/30'
           }`}
         >
-          {isRunning ? <Pause size={14} className="md:w-4 md:h-4" /> : <Play size={14} className="md:w-4 md:h-4" />}
+          {isRunning ? <Pause size={12} className="md:w-4 md:h-4" /> : <Play size={12} className="md:w-4 md:h-4" />}
         </button>
         <button
           onClick={handleReset}
           className="px-2 md:px-3 py-1 md:py-1.5 bg-slate-700/50 text-slate-400 rounded-lg hover:bg-slate-700 hover:text-slate-200 transition-colors"
         >
-          <RotateCcw size={14} className="md:w-4 md:h-4" />
+          <RotateCcw size={12} className="md:w-4 md:h-4" />
         </button>
       </div>
     </div>
