@@ -7,6 +7,13 @@ import { generateSermon } from './services/gemini';
 
 const STORAGE_KEY = 'sprout_sermon_data';
 const SECTION_ORDER: (keyof SermonState['sections'])[] = ['intro', 'me', 'we1', 'god', 'you', 'we2', 'out'];
+const SERMON_LAYOUT: (keyof SermonState['sections'])[][] = [
+  ['intro'],
+  ['me', 'we1'],
+  ['god'],
+  ['you', 'we2'],
+  ['out']
+];
 
 export default function App() {
   const [bookReference, setBookReference] = useState('');
@@ -295,75 +302,37 @@ export default function App() {
           
           {/* Sermon Sections */}
           <div className="space-y-4 md:space-y-6 pb-10 print:space-y-6 print:pb-0">
-              {SECTION_ORDER.map((sectionKey) => {
-                  const sectionData = sections[sectionKey];
-                  return null; 
-              })}
-
-              <SectionCard 
-                  data={sections.intro} 
-                  onChange={(val) => handleSectionChange('intro', val)} 
-                  onToggle={() => toggleSection('intro')}
-                  isLiveMode={isLiveMode}
-                  isActive={activeSectionId === 'intro'}
-                  onActivate={() => setActiveSectionId('intro')}
-              />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 print:grid-cols-1 print:gap-4">
-                  <SectionCard 
-                      data={sections.me} 
-                      onChange={(val) => handleSectionChange('me', val)} 
-                      onToggle={() => toggleSection('me')}
-                      isLiveMode={isLiveMode}
-                      isActive={activeSectionId === 'me'}
-                      onActivate={() => setActiveSectionId('me')}
+            {SERMON_LAYOUT.map((row, rowIndex) => {
+              if (row.length === 1) {
+                const sectionKey = row[0];
+                return (
+                  <SectionCard
+                    key={sectionKey}
+                    data={sections[sectionKey]}
+                    onChange={(val) => handleSectionChange(sectionKey, val)}
+                    onToggle={() => toggleSection(sectionKey)}
+                    isLiveMode={isLiveMode}
+                    isActive={activeSectionId === sectionKey}
+                    onActivate={() => setActiveSectionId(sectionKey)}
                   />
-                  <SectionCard 
-                      data={sections.we1} 
-                      onChange={(val) => handleSectionChange('we1', val)} 
-                      onToggle={() => toggleSection('we1')}
-                      isLiveMode={isLiveMode}
-                      isActive={activeSectionId === 'we1'}
-                      onActivate={() => setActiveSectionId('we1')}
-                  />
-              </div>
-
-              <SectionCard 
-                  data={sections.god} 
-                  onChange={(val) => handleSectionChange('god', val)} 
-                  onToggle={() => toggleSection('god')}
-                  isLiveMode={isLiveMode}
-                  isActive={activeSectionId === 'god'}
-                  onActivate={() => setActiveSectionId('god')}
-              />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 print:grid-cols-1 print:gap-4">
-                  <SectionCard 
-                      data={sections.you} 
-                      onChange={(val) => handleSectionChange('you', val)} 
-                      onToggle={() => toggleSection('you')}
-                      isLiveMode={isLiveMode}
-                      isActive={activeSectionId === 'you'}
-                      onActivate={() => setActiveSectionId('you')}
-                  />
-                  <SectionCard 
-                      data={sections.we2} 
-                      onChange={(val) => handleSectionChange('we2', val)} 
-                      onToggle={() => toggleSection('we2')}
-                      isLiveMode={isLiveMode}
-                      isActive={activeSectionId === 'we2'}
-                      onActivate={() => setActiveSectionId('we2')}
-                  />
-              </div>
-
-              <SectionCard 
-                  data={sections.out} 
-                  onChange={(val) => handleSectionChange('out', val)} 
-                  onToggle={() => toggleSection('out')}
-                  isLiveMode={isLiveMode}
-                  isActive={activeSectionId === 'out'}
-                  onActivate={() => setActiveSectionId('out')}
-              />
+                );
+              }
+              return (
+                <div key={rowIndex} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 print:grid-cols-1 print:gap-4">
+                  {row.map(sectionKey => (
+                     <SectionCard
+                       key={sectionKey}
+                       data={sections[sectionKey]}
+                       onChange={(val) => handleSectionChange(sectionKey, val)}
+                       onToggle={() => toggleSection(sectionKey)}
+                       isLiveMode={isLiveMode}
+                       isActive={activeSectionId === sectionKey}
+                       onActivate={() => setActiveSectionId(sectionKey)}
+                     />
+                  ))}
+                </div>
+              )
+            })}
           </div>
 
           {/* FOOTER ACTIONS & TITLE */}

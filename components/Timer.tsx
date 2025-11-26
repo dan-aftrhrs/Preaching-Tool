@@ -16,20 +16,20 @@ export const Timer: React.FC<TimerProps> = ({ isRunning, onToggle }) => {
     return () => clearInterval(timer);
   }, []);
 
-  // Countdown/Stopwatch logic
+  // Stopwatch logic - more efficient implementation
   useEffect(() => {
-    let interval: any = null;
+    let interval: number | undefined;
     if (isRunning) {
-      interval = setInterval(() => {
-        setTime((prev) => prev + 1);
+      interval = window.setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
       }, 1000);
-    } else if (!isRunning && time !== 0) {
-      if (interval) clearInterval(interval);
     }
     return () => {
-      if (interval) clearInterval(interval);
+      if (interval) {
+        window.clearInterval(interval);
+      }
     };
-  }, [isRunning, time]);
+  }, [isRunning]);
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
