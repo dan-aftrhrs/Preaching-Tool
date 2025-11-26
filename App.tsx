@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Download, Upload, RotateCcw, Printer, Sparkles } from 'lucide-react';
 import { Timer } from './components/Timer';
 import { SectionCard } from './components/SectionCard';
@@ -18,6 +18,11 @@ export default function App() {
   // Live Mode State
   const [isLiveMode, setIsLiveMode] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+
+  // AI Button Visibility State
+  const [isAiVisible, setIsAiVisible] = useState(false);
+  const onePointTapCount = useRef(0);
+  const onePointTapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load from local storage on mount
   useEffect(() => {
@@ -179,9 +184,26 @@ export default function App() {
     };
     reader.readAsText(file);
   };
+  
+  const handleOnePointTap = () => {
+    onePointTapCount.current += 1;
+
+    if (onePointTapTimer.current) {
+        clearTimeout(onePointTapTimer.current);
+    }
+
+    if (onePointTapCount.current === 3) {
+        setIsAiVisible(prev => !prev);
+        onePointTapCount.current = 0;
+    } else {
+        onePointTapTimer.current = setTimeout(() => {
+            onePointTapCount.current = 0;
+        }, 500); // Reset after 500ms
+    }
+  };
 
   return (
-    <div className="h-screen flex flex-col bg-background text-slate-200 overflow-hidden selection:bg-indigo-500/30">
+    <div className="h-screen flex flex-col bg-background text-slate-200 overflow-hidden selection:bg-indigo-500/30 print:bg-white">
       
       {/* STATIC TOP AREA: Verses + Timer + One Point */}
       <div className="flex-none z-20 bg-background shadow-lg shadow-black/20 border-b border-border print:border-none print:shadow-none print:bg-white print:text-black">
@@ -231,8 +253,12 @@ export default function App() {
 
           {/* Bottom Row (Static): The One Point */}
           <div className="relative group print:mt-4">
-             <div className="absolute inset-y-0 left-0 pl-3 md:pl-4 flex items-center pointer-events-none no-print">
-               <span className="text-yellow-500 font-bold text-[10px] md:text-xs tracking-wider uppercase whitespace-nowrap">The One Point</span>
+             <div 
+               className="absolute inset-y-0 left-0 pl-3 md:pl-4 flex items-center pointer-events-none no-print cursor-pointer"
+               onClick={handleOnePointTap}
+               title="Triple-tap to toggle AI helper"
+             >
+               <span className="text-yellow-500 font-bold text-[10px] md:text-xs tracking-wider uppercase whitespace-nowrap pointer-events-auto">The One Point</span>
              </div>
              
              {/* Screen Input */}
@@ -249,14 +275,16 @@ export default function App() {
                 {onePoint || "The One Point"}
              </div>
 
-             <button 
-               className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 p-1.5 md:p-2 text-slate-500 hover:text-yellow-400 transition-colors no-print disabled:opacity-50"
-               onClick={handleGenerateFullSermon}
-               disabled={isGenerating}
-               title="Generate Full Sermon from Verses and One Point"
-             >
-               <Sparkles size={18} className={`md:w-5 md:h-5 ${isGenerating ? "animate-spin text-yellow-500" : ""}`} />
-             </button>
+             {isAiVisible && (
+                <button 
+                className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 p-1.5 md:p-2 text-slate-500 hover:text-yellow-400 transition-colors no-print disabled:opacity-50"
+                onClick={handleGenerateFullSermon}
+                disabled={isGenerating}
+                title="Generate Full Sermon from Verses and One Point"
+              >
+                <Sparkles size={18} className={`md:w-5 md:h-5 ${isGenerating ? "animate-spin text-yellow-500" : ""}`} />
+              </button>
+             )}
           </div>
         </div>
       </div>
