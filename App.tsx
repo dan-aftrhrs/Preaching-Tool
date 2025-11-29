@@ -213,7 +213,7 @@ export default function App() {
     <div className="h-screen flex flex-col bg-background text-slate-200 overflow-hidden selection:bg-indigo-500/30 print:bg-white">
       
       {/* STATIC TOP AREA: Verses + Timer + One Point */}
-      <div className="flex-none z-20 bg-background shadow-lg shadow-black/20 border-b border-border print:border-none print:shadow-none print:bg-white print:text-black">
+      <div className="flex-none z-20 bg-background shadow-lg shadow-black/20 border-b border-border print:border-none print:shadow-none print:bg-white print:text-black pt-[env(safe-area-inset-top)]">
         
         {/* Content Container */}
         <div className="max-w-6xl mx-auto p-3 md:p-4 lg:px-8 md:py-6 space-y-3 md:space-y-4 print:p-0 print:space-y-2">
