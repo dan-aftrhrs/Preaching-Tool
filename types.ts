@@ -1,3 +1,4 @@
+
 export interface SermonSectionData {
   id: string;
   title: string;
@@ -30,7 +31,7 @@ export const INITIAL_SECTIONS: SermonState['sections'] = {
     title: 'INTRODUCTION',
     subtitle: 'Hook the audience and introduce the topic.',
     placeholder: 'Hook the audience and introduce the topic. Start with a story, a question, or a tension that grabs attention...',
-    color: 'cyan',
+    color: 'emerald', // Green
     content: '',
     isExpanded: true,
   },
@@ -40,7 +41,7 @@ export const INITIAL_SECTIONS: SermonState['sections'] = {
     title: 'ORIENTATION',
     subtitle: 'Here is a problem I have or have had. (Builds Rapport)',
     placeholder: 'Here is a problem I have or have had. (Builds Rapport)',
-    color: 'indigo',
+    color: 'blue', // Blue
     content: '',
     isExpanded: true,
   },
@@ -50,7 +51,7 @@ export const INITIAL_SECTIONS: SermonState['sections'] = {
     title: 'IDENTIFICATION',
     subtitle: 'Here is how this affects all of us. (Builds Tension)',
     placeholder: 'Here is how this affects all of us. (Builds Tension)',
-    color: 'violet',
+    color: 'rose', // Red
     content: '',
     isExpanded: true,
   },
@@ -60,7 +61,7 @@ export const INITIAL_SECTIONS: SermonState['sections'] = {
     title: 'ILLUMINATION',
     subtitle: 'Here is what God says about it. (Resolves Tension)',
     placeholder: 'Here is what God says about it. (Resolves Tension)',
-    color: 'amber',
+    color: 'amber', // Yellow
     content: '',
     isExpanded: true,
   },
@@ -70,7 +71,7 @@ export const INITIAL_SECTIONS: SermonState['sections'] = {
     title: 'APPLICATION',
     subtitle: 'Here is what you should do. (Challenge)',
     placeholder: 'Here is what you should do. (Challenge)"',
-    color: 'orange',
+    color: 'rose', // Red
     content: '',
     isExpanded: true,
   },
@@ -80,7 +81,7 @@ export const INITIAL_SECTIONS: SermonState['sections'] = {
     title: 'INSPIRATION',
     subtitle: 'Here is what happens if we all do this. (Vision)',
     placeholder: 'Here is what happens if we all do this. (Vision)',
-    color: 'emerald',
+    color: 'blue', // Blue
     content: '',
     isExpanded: true,
   },
@@ -90,7 +91,7 @@ export const INITIAL_SECTIONS: SermonState['sections'] = {
     title: 'CONCLUSION',
     subtitle: 'Summarize the main point and land the plane.',
     placeholder: 'Summarize the main point and land the plane.',
-    color: 'rose',
+    color: 'emerald', // Green
     content: '',
     isExpanded: true,
   },

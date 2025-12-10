@@ -210,10 +210,10 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-background text-slate-200 overflow-hidden selection:bg-indigo-500/30 print:bg-white">
+    <div className="h-screen flex flex-col bg-background text-zinc-200 overflow-hidden selection:bg-zinc-700 selection:text-white print:bg-white">
       
       {/* STATIC TOP AREA: Verses + Timer + One Point */}
-      <div className="flex-none z-20 bg-background shadow-lg shadow-black/20 border-b border-border print:border-none print:shadow-none print:bg-white print:text-black pt-[env(safe-area-inset-top)]">
+      <div className="flex-none z-20 bg-background shadow-lg shadow-black/40 border-b border-border print:border-none print:shadow-none print:bg-white print:text-black pt-[env(safe-area-inset-top)]">
         
         {/* Content Container */}
         <div className="max-w-6xl mx-auto p-3 md:p-4 lg:px-8 md:py-6 space-y-3 md:space-y-4 print:p-0 print:space-y-2">
@@ -222,12 +222,12 @@ export default function App() {
           <div className="grid grid-cols-4 gap-3 md:gap-6 print:block">
             {/* Verses Container */}
             <div className="col-span-3 bg-surface border border-border rounded-xl p-0 flex flex-col overflow-hidden shadow-sm h-36 md:h-40 transition-all print:h-auto print:bg-transparent print:border-none print:shadow-none print:mb-4">
-               <div className="px-2 md:px-4 py-2 md:py-3 border-b border-border bg-slate-800/50 flex items-center justify-between print:border-none print:bg-transparent print:p-0 print:mb-1">
+               <div className="px-2 md:px-4 py-2 md:py-3 border-b border-border bg-zinc-900 flex items-center justify-between print:border-none print:bg-transparent print:p-0 print:mb-1">
                   {/* Screen Input */}
                   <input 
                     type="text" 
                     placeholder="Reference..."
-                    className="bg-transparent border-none text-slate-200 font-semibold text-xs md:text-sm tracking-wide focus:outline-none placeholder-slate-500 w-full"
+                    className="bg-transparent border-none text-zinc-200 font-semibold text-xs md:text-sm tracking-wide focus:outline-none placeholder-zinc-500 w-full"
                     value={bookReference}
                     onChange={(e) => setBookReference(e.target.value)}
                   />
@@ -235,19 +235,19 @@ export default function App() {
                   <div className="print-only text-lg font-bold text-black uppercase tracking-wider mb-1">
                     {bookReference || "Scripture Reference"}
                   </div>
-                  <span className="hidden md:inline text-xs text-slate-500 whitespace-nowrap ml-2 no-print">Scripture Foundation</span>
+                  <span className="hidden md:inline text-xs text-zinc-500 whitespace-nowrap ml-2 no-print">Scripture Foundation</span>
                </div>
                
                {/* Screen Textarea */}
                <textarea 
-                  className="flex-grow bg-transparent p-2 md:p-4 text-slate-300 placeholder-slate-600 focus:outline-none resize-none text-xs md:text-base leading-relaxed"
+                  className="flex-grow bg-transparent p-2 md:p-4 text-zinc-300 placeholder-zinc-600 focus:outline-none resize-none text-xs md:text-base leading-relaxed"
                   placeholder="Paste scripture..."
                   value={verses}
                   onChange={(e) => setVerses(e.target.value)}
                />
 
                {/* Print View for Verses */}
-               <div className="print-only whitespace-pre-wrap text-sm leading-relaxed text-black border-l-4 border-slate-300 pl-4 italic">
+               <div className="print-only whitespace-pre-wrap text-sm leading-relaxed text-black border-l-4 border-zinc-300 pl-4 italic">
                  {verses || "No scripture provided."}
                </div>
             </div>
@@ -265,13 +265,13 @@ export default function App() {
                onClick={handleOnePointTap}
                title="Triple-tap to toggle AI helper"
              >
-               <span className="text-yellow-500 font-bold text-[10px] md:text-xs tracking-wider uppercase whitespace-nowrap pointer-events-auto">The One Point</span>
+               <span className="text-yellow-600 font-bold text-[10px] md:text-xs tracking-wider uppercase whitespace-nowrap pointer-events-auto">The One Point</span>
              </div>
              
              {/* Screen Input */}
              <input 
                type="text"
-               className="w-full bg-slate-800/80 border border-slate-700 rounded-xl py-3 md:py-4 pl-32 sm:pl-36 md:pl-36 pr-10 md:pr-12 text-base md:text-lg font-medium text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/20 focus:border-yellow-500/50 transition-all shadow-sm"
+               className="w-full bg-zinc-900 border border-zinc-800 rounded-xl py-3 md:py-4 pl-40 md:pl-48 pr-10 md:pr-12 text-base md:text-lg font-medium text-zinc-100 placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-yellow-500/10 focus:border-yellow-600/50 transition-all shadow-sm"
                placeholder="State your main idea..."
                value={onePoint}
                onChange={(e) => setOnePoint(e.target.value)}
@@ -284,12 +284,12 @@ export default function App() {
 
              {isAiVisible && (
                 <button 
-                className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 p-1.5 md:p-2 text-slate-500 hover:text-yellow-400 transition-colors no-print disabled:opacity-50"
+                className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 p-1.5 md:p-2 text-zinc-500 hover:text-yellow-500 transition-colors no-print disabled:opacity-50"
                 onClick={handleGenerateFullSermon}
                 disabled={isGenerating}
                 title="Generate Full Sermon from Verses and One Point"
               >
-                <Sparkles size={18} className={`md:w-5 md:h-5 ${isGenerating ? "animate-spin text-yellow-500" : ""}`} />
+                <Sparkles size={18} className={`md:w-5 md:h-5 ${isGenerating ? "animate-spin text-yellow-600" : ""}`} />
               </button>
              )}
           </div>
@@ -342,31 +342,31 @@ export default function App() {
                  {/* Simplified Logo/Title Area */}
                  <div className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity">
                     <div>
-                        <h1 className="text-xs md:text-sm font-bold tracking-tight text-slate-400 uppercase">Sermon Tool</h1>
+                        <h1 className="text-xs md:text-sm font-bold tracking-tight text-zinc-500 uppercase">Sermon Tool</h1>
                     </div>
                  </div>
 
                  {/* Actions */}
                  <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-                     <label className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-xs md:text-sm font-medium hover:bg-slate-700 cursor-pointer transition-colors text-slate-300">
+                     <label className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-xs md:text-sm font-medium hover:bg-zinc-800 cursor-pointer transition-colors text-zinc-400">
                        <Upload size={14} className="md:w-4 md:h-4" />
                        Load
                        <input type="file" className="hidden" accept=".json" onChange={handleUpload} />
                      </label>
-                     <button onClick={handleDownload} className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-xs md:text-sm font-medium hover:bg-slate-700 transition-colors text-slate-300">
+                     <button onClick={handleDownload} className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-xs md:text-sm font-medium hover:bg-zinc-800 transition-colors text-zinc-400">
                        <Download size={14} className="md:w-4 md:h-4" /> Save
                      </button>
-                     <button onClick={handlePrint} className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-xs md:text-sm font-medium hover:bg-slate-700 transition-colors text-slate-300">
+                     <button onClick={handlePrint} className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-xs md:text-sm font-medium hover:bg-zinc-800 transition-colors text-zinc-400">
                        <Printer size={14} className="md:w-4 md:h-4" /> Print
                      </button>
-                     <div className="hidden md:block w-px h-8 bg-slate-700 mx-1"></div>
-                     <button onClick={handleReset} className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-rose-950/30 border border-rose-900/50 text-rose-400 rounded-lg text-xs md:text-sm font-medium hover:bg-rose-900/50 transition-colors">
+                     <div className="hidden md:block w-px h-8 bg-zinc-800 mx-1"></div>
+                     <button onClick={handleReset} className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-red-950/20 border border-red-900/30 text-red-400 rounded-lg text-xs md:text-sm font-medium hover:bg-red-900/30 transition-colors">
                        <RotateCcw size={14} className="md:w-4 md:h-4" /> Reset All
                      </button>
                  </div>
              </div>
              
-             <footer className="text-center text-slate-600 text-[10px] md:text-xs mt-8">
+             <footer className="text-center text-zinc-600 text-[10px] md:text-xs mt-8">
                 Designed for "Communicating for a Change" methodology
              </footer>
           </div>
